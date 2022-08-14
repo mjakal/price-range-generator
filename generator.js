@@ -13,10 +13,9 @@ const generatorConfig = {
 
 // Check if value is numeric. Falsy values: '', 'test', null, NaN, undefined, 0
 const isPositiveValue = (value) => { 
-  const isNumber = !isNaN(parseInt(value));
-  const isPositive = value > 0;
+  if (isNaN(parseInt(value))) return false;
 
-  return isNumber && isPositive;
+  return value >= 0;
 }
 
 /* 
@@ -56,6 +55,11 @@ const priceRangeGenerator = (min, max, items) => {
     throw 'Param max must be greater then min.';
   }
 
+  // Validate items values
+  if (items <= 0) {
+    throw 'Param items must be greater then zero.';
+  }
+
   const { stepThreshold, incrementBelow, incrementAbove} = generatorConfig;
   const roundedMin = roundToSignificantDigit(min, 'FLOOR');
   const roundedMax = roundToSignificantDigit(max, 'CEIL');
@@ -86,7 +90,7 @@ const priceRangeGenerator = (min, max, items) => {
  * ######################################## 
  */
 const testList = [
-  { min: 0.1, max: 1.7, items: 5 },
+  { min: 0, max: 1.7, items: 3 },
   { min: 0.4, max: 3, items: 5 },
   { min: 9, max: 27, items: 5 },
   { min: 11.99, max: 89, items: 5 },
