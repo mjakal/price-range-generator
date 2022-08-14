@@ -26,11 +26,8 @@ const isPositiveValue = (value) => {
 const roundToSignificantDigit = (value = 0, type = 'FLOOR') => {
   const roundedValue = type === 'FLOOR' ? Math.floor(value) : Math.ceil(value);
   const digits = roundedValue.toString().length;
-  let subtract = 0;
-  
   // Adjust rounding precision by subtracting digits
-  for (let i = 0; i < digits; i = i + 2) { subtract++; }
-
+  const subtract = Math.ceil(digits / 3);
   const divider = Math.pow(10, digits - subtract);
   const fragment = roundedValue % divider;
 
