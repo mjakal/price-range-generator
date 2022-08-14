@@ -28,6 +28,8 @@ const roundToSignificantDigit = (value = 0, type = 'FLOOR') => {
   const digits = roundedValue.toString().length;
   // Adjust rounding precision by subtracting digits
   const subtract = Math.ceil(digits / 3);
+  // This has a higher precision
+  // const subtract = Math.ceil(Math.sqrt(digits));
   const divider = Math.pow(10, digits - subtract);
   const fragment = roundedValue % divider;
 
